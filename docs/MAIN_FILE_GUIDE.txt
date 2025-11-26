@@ -1,0 +1,69 @@
+Recommended main-file approach and contract
+
+Summary
+-------
+This document captures the recommended main-file approach, the contract for inputs/outputs, edge cases to consider, and the list of placeholder files created for the project.
+
+Where to put dataset & algorithm code
+- Library code (reusable): `src/`
+  - `src/data_loader.py` — dataset import & cleaning utilities (CSV loader, image-label parsing)
+  - `src/linear_model.py` — model training, evaluation and save/load helpers
+
+- Orchestration (single entrypoint): `scripts/train_linear.py`
+  - This is the canonical script to import datasets, run preprocessing, train the chosen algorithm(s), evaluate, and save artifacts.
+
+Why this structure
+- Separation of concerns (I/O and cleaning vs algorithms vs orchestration)
+- Notebooks (`test.ipynb`) remain for exploration; `scripts/train_linear.py` is the reproducible entrypoint for CI/runs.
+
+Contract for `scripts/train_linear.py`
+- Inputs:
+  - `--data-path` (path to CSV or dataset root)
+  - `--target` (optional, default: last column)
+  - `--output-dir` (where to save model/metrics)
+  - `--test-size`, `--random-seed`, `--scaling` (options)
+
+- Outputs:
+  - joblib file with `{'model': model, 'scaler': scaler}` saved to `output-dir`
+  - printed/logged metrics (MSE, R²)
+
+- Error modes:
+  - missing file -> clear error and non-zero exit
+  - unsupported target type -> error
+
+Edge cases
+- Missing/malformed CSVs — raise or exit with clear message
+- High-cardinality categoricals — consider encoding choices
+- Small datasets — warn and optionally use CV
+- Image dataset labels missing or None — filter or fail depending on the script flag
+
+Files created as placeholders (empty with comments)
+- `scripts/train_linear.py` — CLI entrypoint to orchestrate the numerical pipeline
+- `scripts/prepare_image_dataset.py` — helper to inspect/prepare the YOLO-style image dataset
+- `tests/test_loader.py` — minimal tests for `src/data_loader` functions
+- `tests/test_trainer.py` — minimal tests for `src/linear_model` training and save
+- `config/config.yaml` — optional configuration skeleton for dataset paths/hyperparams
+- `src/models/__init__.py` — package to hold additional model implementations in future
+
+Candidate files for removal
+---------------------------
+I did not remove any files automatically. Below are files I previously created which you may no longer need; please confirm which to delete:
+- `setup.py` (small setuptools stub) — useful if you plan to package or install via pip, otherwise can be removed.
+- `requirements.txt` — if you prefer to pin & replace it, keep or replace with a pinned file.
+
+I will NOT delete `myenv/` (virtualenv) — that is managed by you and should not be removed automatically.
+
+Examples (what `scripts/train_linear.py` will do)
+1. parse CLI
+2. load data via `src.data_loader.load_csv`
+3. clean & impute missing values
+4. encode categoricals (one-hot by default)
+5. split train/test
+6. call `src.linear_model.train_linear_regression`
+7. evaluate and call `src.linear_model.save_model`
+
+If you'd like, I can now:
+ - Create an actual runnable `scripts/train_linear.py` and run it against `insurance.csv` (requires confirming it's OK to run training now), or
+ - Remove any files you confirm from the candidate list above.
+
+Saved in: `docs/MAIN_FILE_GUIDE.txt`

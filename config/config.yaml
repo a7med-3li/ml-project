@@ -1,0 +1,13 @@
+"""config/config.yaml
+
+Optional configuration skeleton for dataset paths and hyperparameters.
+
+Usage: parse this file (yaml) in `scripts/train_linear.py` if you prefer config-driven runs.
+"""
+
+# Example contents (uncomment and edit when using):
+# data_path: insurance.csv
+# target: charges
+# output_dir: models
+# test_size: 0.2
+# random_seed: 42

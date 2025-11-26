@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+
+# Virtual environments
+myenv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Models and data
+/models/
+/data/
+
+# OS
+.DS_Store
