@@ -1,62 +1,68 @@
 # ML Project — Numerical + Image datasets
 
-This repository contains a small ML project using:
+This repository contains a small ML project with two example datasets and simple training utilities.
 
-- Numerical dataset: `insurance.csv` (placed in project root)
-- Image dataset: `image_dataset/` (YOLO-like labels under `train/labels`, `val/labels`, `test/labels`)
+- Numerical dataset: `assets/numerical_dataset/insurance.csv`
+- Image dataset: `assets/image_dataset/` (YOLO-like labels under `train/labels`, `val/labels`, `test/labels`)
 
-Structure
+Repository structure (high level)
 
 ```
 project/
 ├─ README.md
 ├─ requirements.txt
 ├─ setup.py
-├─ insurance.csv
-├─ image_dataset/
-│  ├─ data.yaml
-│  ├─ train/
-│  ├─ val/
-│  └─ test/
-├─ src/
-│  ├─ data_loader.py        # functions for loading CSVs and parsing image labels
-│  ├─ linear_model.py       # data cleaning, training, evaluation, saving sklearn model
-│  └─ __init__.py
-├─ scripts/
-│  ├─ train_linear.py       # runs numerical pipeline end-to-end
-│  └─ prepare_image_dataset.py
+├─ assets/
+│  ├─ numerical_dataset/
+│  │  └─ insurance.csv
+│  └─ image_dataset/
+├─ src/                 # reusable library code
+├─ scripts/             # runnable helpers and CLI entrypoints
+├─ notebooks/           # experiments and exploratory analysis
 └─ tests/
-   └─ test_linear.py
 ```
 
 Quick start
 
-1. Activate your virtualenv:
+1. Create and activate a Python virtual environment (recommended):
 
 ```bash
-cd /home/ahmed/Work/Ahmed/ThirdYear/Cs/ML/project
+python -m venv myenv
 source myenv/bin/activate
 ```
 
-2. Install requirements (if not already):
+2. Install project dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Train the linear regression model on the numerical dataset:
+3. Jupyter notebooks
+
+- Open the notebooks for interactive work (recommended):
 
 ```bash
-python scripts/train_linear.py --data-path insurance.csv --output-dir models
+jupyter lab  # or jupyter notebook
 ```
 
-4. Prepare / inspect the image dataset labels (example):
+- Notebooks are under `notebooks/`, the main numerical pipeline is in `notebooks/numerical_dataset.ipynb`.
+
+4. (Optional) Run a CLI training script
+
+- There is a planned CLI at `scripts/train_linear.py` which will orchestrate loading, preprocessing and training. If present it can be run like:
 
 ```bash
-python scripts/prepare_image_dataset.py --dataset-dir image_dataset
+python scripts/train_linear.py --data-path assets/numerical_dataset/insurance.csv --output-dir artifacts
 ```
 
-Notes
+Notes and tips
 
-- The repository is intended for uploading to GitHub. The `.gitignore` excludes virtualenvs and common artifacts.
-- If you want reproducible pins, run `pip freeze > requirements.txt` after installing the desired versions.
+- Data files were moved into `assets/` to keep the repository root clean. Use `assets/numerical_dataset/insurance.csv` as the canonical path.
+- If you need reproducible pins, update `requirements.txt` with exact versions and recreate your venv.
+- Tests are under `tests/`. Run them with pytest after installing the dev deps.
+
+Contributing
+
+- Consider creating a branch and opening a PR for larger changes (CI/workflow additions, new models).
+
+If you'd like, I can also scaffold `scripts/train_linear.py` and a small pytest harness so the CLI and tests are runnable.

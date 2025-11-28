@@ -1,8 +1,19 @@
-pandas
-numpy
-scikit-learn
-joblib
+pandas==2.3.3
+numpy==2.3.5
+scikit-learn==1.7.2
+joblib==1.5.2
 ipykernel
 jupyter
-matplotlib
-seaborn
+notebook
+matplotlib==3.10.7
+seaborn==0.13.2
+scipy==1.16.3
+plotly
+pillow
+tqdm
+pyyaml
+pytest
+
+# Optional / dev
+# black
+# flake8
