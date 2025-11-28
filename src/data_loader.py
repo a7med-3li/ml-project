@@ -20,6 +20,7 @@ def load_csv(path: str) -> pand.DataFrame:
         pandas DataFrame
     """
     if not os.path.exists(path):
+        print
         raise FileNotFoundError(f"CSV not found: {path}")
     return pand.read_csv(path)
 

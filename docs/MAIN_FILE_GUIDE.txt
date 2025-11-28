@@ -45,25 +45,15 @@ Files created as placeholders (empty with comments)
 - `config/config.yaml` — optional configuration skeleton for dataset paths/hyperparams
 - `src/models/__init__.py` — package to hold additional model implementations in future
 
-Candidate files for removal
----------------------------
-I did not remove any files automatically. Below are files I previously created which you may no longer need; please confirm which to delete:
-- `setup.py` (small setuptools stub) — useful if you plan to package or install via pip, otherwise can be removed.
-- `requirements.txt` — if you prefer to pin & replace it, keep or replace with a pinned file.
-
-I will NOT delete `myenv/` (virtualenv) — that is managed by you and should not be removed automatically.
-
-Examples (what `scripts/train_linear.py` will do)
-1. parse CLI
-2. load data via `src.data_loader.load_csv`
-3. clean & impute missing values
-4. encode categoricals (one-hot by default)
+steps for this project : 
+-- first thing we need wife , it is so important for any project , after that , following : 
+1. load data via `src.data_loader.load_csv` (Done)
+2. clean & impute missing values , clean duplicates (Done)
+3. check & handle outliers  (Done) 
+4. encode categoricals (one-hot by default) (Done) 
+6. map smoker ( yes , no ) -> ( 1,0)
+7. feature engineering if need ( make sure to check if it is important first )
 5. split train/test
-6. call `src.linear_model.train_linear_regression`
-7. evaluate and call `src.linear_model.save_model`
+.  cross validation on dataset 
 
-If you'd like, I can now:
- - Create an actual runnable `scripts/train_linear.py` and run it against `insurance.csv` (requires confirming it's OK to run training now), or
- - Remove any files you confirm from the candidate list above.
 
-Saved in: `docs/MAIN_FILE_GUIDE.txt`
