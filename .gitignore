@@ -16,3 +16,4 @@ myenv/
 
 # OS
 .DS_Store
+assets/image_dataset/*.csv
