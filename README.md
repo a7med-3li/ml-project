@@ -4,6 +4,7 @@ This repository contains example pipelines and notebooks for working with two da
 
 - **Numerical dataset:** `assets/numerical_dataset/insurance.csv`
 - **Image dataset (YOLO label format):** `assets/image_dataset/train/tomatoes_dataset.csv`
+- here is its link: [tomatoes_dataset.csv](https://drive.google.com/drive/folders/19PVlE7EXqTCGUWgw7XhOujhAgr5_kUzp?usp=sharing)
 
 **Repository Overview**
 
