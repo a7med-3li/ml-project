@@ -16,6 +16,6 @@ myenv/
 
 # OS
 .DS_Store
-assets/image_dataset/*.csv
+assets/image_dataset/train/*.csv
 
 scripts/*.csv
